@@ -9,9 +9,3 @@ class Solution:
         for k, v in d.items():
             if v == 1:
                 return k
-
-
-nums = [4,1,2,1,2]
-sol = Solution()
-res = sol.singleNumber(nums)
-pass
