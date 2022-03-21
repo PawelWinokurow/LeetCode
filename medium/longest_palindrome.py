@@ -1,18 +1,22 @@
 class Solution:
-    def longestPalindrome(self, s):
+    def longestPalindrome(self, s: str) -> str:
         n = len(s)
-        if n < 2: return s
-        dp, ans = [[0] * n for _ in range(n)], {}
-        for i in range(n - 1, -1, -1):
-            for j in range(i, n):
-                if s[i] == s[j] and ((j - i + 1) <= 3 or dp[i + 1][j - 1]):
-                    dp[i][j] = True
-                    ans[j - i + 1] = s[i:j + 1]
-                else:
-                    dp[i][j] = False
-        return ans[max(ans)]
-
-s = "babad"
-sol = Solution()
-ret = sol.longestPalindrome(s)
-pass
+        max_length = 1
+        max_palindrome = s[0]
+        dp = [[0] * n for _ in range(n)]
+        for s_idx in range(n):
+            dp[s_idx][s_idx] = True
+        for s_idx in range(n-1):
+            if s[s_idx] == s[s_idx+1]:
+                dp[s_idx][s_idx+1] = True
+                max_length = 2
+                max_palindrome = s[s_idx:s_idx+max_length]
+        for k in range(3, n+1):
+            for s_idx in range(n - k + 1):
+                e_idx = s_idx + k - 1
+                if dp[s_idx+1][e_idx-1] and s[s_idx] == s[e_idx]:
+                    dp[s_idx][e_idx] = True
+                    if k > max_length:
+                        max_length = k
+                        max_palindrome = s[s_idx:s_idx + max_length]
+        return max_palindrome
