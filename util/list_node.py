@@ -13,10 +13,9 @@ def print_list(head):
         head = head.next
 
 def create_list(list: List):
-    list_reversed = list[::-1]
     fake_head = ListNode()
     prev = fake_head
-    for el in list_reversed:
+    for el in list:
         tail = ListNode(el)
         prev.next = tail
         prev = tail
